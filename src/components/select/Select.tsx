@@ -20,7 +20,7 @@ type SelectProps = {
 	title?: string;
 };
 
-export const Select = (props: SelectProps) => {
+export const Select: React.FunctionComponent<SelectProps> = (props) => {
 	const { options, placeholder, selected, onChange, onClose, title } = props;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
