@@ -14,13 +14,13 @@ const ArrowButtonWithState = () => {
 		console.log('Button clicked', target);
 	};
 
-	const [openState, setOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	return (
 		<ArrowButton
 			onClick={handleClick}
-			openState={openState}
-			setOpen={setOpen}
+			isMenuOpen={isMenuOpen}
+			setIsMenuOpen={setIsMenuOpen}
 		/>
 	);
 };

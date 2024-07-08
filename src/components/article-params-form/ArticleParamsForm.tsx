@@ -20,40 +20,41 @@ import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose';
 import styles from './ArticleParamsForm.module.scss';
 
 type ArticleParamsFormProps = {
-	appState: ArticleStateType;
-	setAppState: (param: ArticleStateType) => void;
+	articleState: ArticleStateType;
+	setArticleState: (param: ArticleStateType) => void;
 };
 
 export const ArticleParamsForm: React.FunctionComponent<
 	ArticleParamsFormProps
-> = ({ appState, setAppState }) => {
-	const [openState, setOpen] = useState(false);
+> = ({ articleState, setArticleState }) => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const formRef = useRef<HTMLElement | null>(null);
-	const [fieldformState, setFormState] = useState<ArticleStateType>(appState);
+	const [fieldformState, setFormState] =
+		useState<ArticleStateType>(articleState);
 	const closeRef = useRef<HTMLDivElement | null>(null);
 
 	const handleClick = () => {
-		setOpen(!openState);
+		setIsMenuOpen(!isMenuOpen);
 	};
 
 	useOutsideClickClose({
-		isOpen: openState,
+		isOpen: isMenuOpen,
 		rootRef: closeRef,
 		onClose: () => {
-			setOpen(openState);
+			setIsMenuOpen(isMenuOpen);
 		},
 		onChange: (newValue) => {
-			setOpen(newValue);
+			setIsMenuOpen(newValue);
 		},
 	});
 
 	useEffect(() => {
-		if (openState) {
+		if (isMenuOpen) {
 			formRef.current?.classList.add(styles.container_open);
 		} else {
 			formRef.current?.classList.remove(styles.container_open);
 		}
-	}, [openState]);
+	}, [isMenuOpen]);
 
 	const handleChangeSelect = (
 		option: OptionType,
@@ -62,20 +63,20 @@ export const ArticleParamsForm: React.FunctionComponent<
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setAppState(fieldformState);
+		setArticleState(fieldformState);
 	};
 
 	const clearFormState = () => {
 		setFormState(defaultArticleState);
-		setAppState(defaultArticleState);
+		setArticleState(defaultArticleState);
 	};
 
 	return (
 		<div ref={closeRef}>
 			<ArrowButton
 				onClick={handleClick}
-				openState={openState}
-				setOpen={setOpen}
+				isMenuOpen={isMenuOpen}
+				setIsMenuOpen={setIsMenuOpen}
 			/>
 			<aside ref={formRef} className={styles.container}>
 				<form className={styles.form} onSubmit={handleSubmit}>

@@ -46,25 +46,27 @@ import clsx from 'clsx';
 
 export type ArrowButtonProps = {
 	onClick: (target: EventTarget) => void;
-	openState: boolean;
-	setOpen: (value: boolean) => void;
+	isMenuOpen: boolean;
+	setIsMenuOpen: (value: boolean) => void;
 };
 
 export const ArrowButton: React.FunctionComponent<ArrowButtonProps> = ({
-	openState,
-	setOpen,
+	isMenuOpen,
+	setIsMenuOpen,
 	onClick,
 }) => {
 	const handleClick = (event: React.MouseEvent) => {
 		onClick(event.target);
-		setOpen(!openState);
+		setIsMenuOpen(!isMenuOpen);
 	};
 
-	const isClicked = openState;
+	const isMenuOpened = isMenuOpen;
 	const ArrowButtonClasses = clsx(styles.container, {
-		[styles.container_open]: isClicked,
+		[styles.container_open]: isMenuOpened,
 	});
-	const ArrowClasses = clsx(styles.arrow, { [styles.arrow_open]: isClicked });
+	const ArrowClasses = clsx(styles.arrow, {
+		[styles.arrow_open]: isMenuOpened,
+	});
 
 	return (
 		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */
